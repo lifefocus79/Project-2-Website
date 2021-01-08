@@ -1,12 +1,49 @@
-(document).ready(function() {
+$(document).ready(function() {
     console.log( "ready!" );
-  
+
     // REST
-  
-    $('#fetch-beach-gifs').on('click', (event) => {
-      console.log('data');
-  
-      fetch('https://api.giphy.com/v1/gifs/search?api_key=z2ZEbH87cd8iuCJQMq12G5SWX0wx0Mpf&q=beach')
+
+    const fetchGifs = (searchQuery, limit) => {
+      console.log('i was in the fetchGifs function');
+
+      let url = `https://api.giphy.com/v1/gifs/search?api_key=4zv45wmD5vJvLn2UE3B4tNBY1ny9kZZV&q=${searchQuery}&limit=${limit}`
+      console.log(url);
+
+      fetch(url)
+      .then((res) => {
+        return res.json();
+      }).then((result) => {        
+        console.log(result);
+
+        let html = "";
+        for(let img of result.data){
+          console.log(img.images.original.url);
+          let str = `<img src=${img.images.original.url} />`;
+          html = html + str;
+        }
+
+        console.log(html);
+        $('#result').html(html);
+        $('#search-input').val('');
+
+      });
+
+    }
+
+    $('#search-button').on('click', function(){
+      console.log('yay');
+      let searchQuery = $('#search-input').val();
+      let limit = $('#search-quantity').val();
+      
+      console.log(searchQuery);
+      console.log(limit);
+      fetchGifs(searchQuery, limit);
+    });
+
+    $('#fetch-corona-gifs').on('click', () => {
+      console.log('yay');
+
+      fetch('https://api.giphy.com/v1/gifs/search?api_key=4zv45wmD5vJvLn2UE3B4tNBY1ny9kZZV&q=corona&limit=2')
       .then((res) => {
         return res.json();
       }).then((result) => {
@@ -16,30 +53,30 @@
         console.log('images in the first result in the result array are:', result.data[0].images);
         console.log('the original image of the images in the first result in the result array is:', result.data[0].images.original);
         console.log('url of the original image of the images in the first result in the result array is:', result.data[0].images.original.url);
-  
+
         let html = "";
         for(let img of result.data){
           console.log(img.images.original.url);
           let str = `<img src=${img.images.original.url} />`;
           html = html + str;
         }
-  
+
         console.log(html);
         $('#result').html(html);
-  
+
       });
-  
-  
+
+
     });
-  
-  
-  
-  
-  
-    $('#fetch-a-beach').on('click', (event) => {
+
+
+
+
+
+    $('#fetch-a-dog').on('click', (event) => {
       console.log('button was clicked!');
-  
-      fetch('https://api.giphy.com/v1/gifs/search')
+
+      fetch('https://dog.ceo/api/breeds/image/random')
       .then((res) => {
         return res.json();
       }).then((data) => {
@@ -49,12 +86,10 @@
         let img = `<img src=${imgUrl} />`;
         console.log(img);
         $('#result').html(img);
-  
+
       });
-  
+
     })
-  
-  });
-  
-  
-  
+
+});
+
