@@ -6,7 +6,7 @@ $(document).ready(function() {
     const fetchGifs = (searchQuery, limit) => {
       console.log('i was in the fetchGifs function');
 
-      let url = `https://api.giphy.com/v1/gifs/search?api_key=4zv45wmD5vJvLn2UE3B4tNBY1ny9kZZV&q=${searchQuery}&limit=${limit}`
+      let url = `https://api.giphy.com/v1/gifs/search?api_key=z2ZEbH87cd8iuCJQMq12G5SWX0wx0Mpf&q=${searchQuery}&limit=${limit}`
       console.log(url);
 
       fetch(url)
